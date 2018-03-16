@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <title>Hirumachi</title>
+    
+    <title>HIRUMACHI</title>
     <%= csrf_meta_tags %>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'layouts/navbar' %>
+    
+    <div class="container">
+      <%= render 'layouts/flash_messages' %>
+      
+      <%= yield %>
+    </div>
+    <div id="main_visual">
+      <img src="street/main_street.jpg" alt="昼休憩をもっと快適に！！">
+    </div>
   </body>
 </html>
