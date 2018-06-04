@@ -21,7 +21,7 @@ class PostsController < ApplicationController
       flash[:success] = 'メッセージを投稿しました'
       redirect_to current_user
     else
-      @posts = current_user.posts.order('created_at DESC').page(params[:page])
+      @posts = current_user.feed_posts.order('created_at DESC').page(params[:page])
       flash.now[:danger] = '投稿に失敗しました'
       render 'toppages/index'
     end

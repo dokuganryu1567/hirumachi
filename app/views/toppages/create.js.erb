@@ -1,1 +1,2 @@
-$('#map_wrapper').html('<%=j render 'map' %>');
+$('#map_wrapper').html('<%=j render 'map', hash: @hash %>');
+$('#posts').html('<%=j render 'toppages/posts', posts: @hav_markers %>');

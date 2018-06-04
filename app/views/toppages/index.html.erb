@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <P>ログイン完了ユーザ: <%= current_user.name %></P>
-  <div id="map" style='width: 500px; height: 400px;'></div>
+  <div id="map" style='width: 500px; height: 300px;'></div>
   
   <div id='result'></div>
   <%= form_tag(root_path, method: :post, name: "gps", id: "gps", remote: true) do %>
@@ -125,7 +125,9 @@
 <% end %>
 
 <div id='map_wrapper'>
-  <%= render 'map' %>
 </div>
+
+<ul id='posts'>
+</ul>
 
 

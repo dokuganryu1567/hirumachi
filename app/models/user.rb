@@ -6,4 +6,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   has_many :posts
+  
+  def feed_posts
+    Post.where(user_id: self.post_ids + [self.id])
+  end
 end

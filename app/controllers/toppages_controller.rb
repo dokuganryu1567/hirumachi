@@ -1,11 +1,9 @@
 class ToppagesController < ApplicationController
   def index
     if logged_in?
-      @user = current_user
       @post = current_user.posts.build
-      @posts = Post.all.order('created_at DESC').page(params[:page])
-      @my_posts = current_user.posts.order('created_at DESC').page(params[:page])
-      # @hav_markers = @posts.where.not(latitude: nil, longitude: nil)
+
+      #@hav_markers = Post.where.not(latitude: nil, longitude: nil)
       # @hash = Gmaps4rails.build_markers(@hav_markers) do |post, marker|
       #   marker.lat post.latitude
       #   marker.lng post.longitude
@@ -28,7 +26,6 @@ class ToppagesController < ApplicationController
       @posts << post if (result < 3)
     end
     # binding.pry
-    @my_posts = current_user.posts.order('created_at DESC').page(params[:page])
     @hav_markers = Post.where(id: @posts.pluck(:id)).where.not(latitude: nil, longitude: nil)
     @hash = Gmaps4rails.build_markers(@hav_markers) do |post, marker|
       marker.lat post.latitude
