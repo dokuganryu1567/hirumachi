@@ -27,6 +27,14 @@ class PostsController < ApplicationController
     end
   end
   
+  def seach
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+    
+    @posts = Post.all.within(3, origin: [latitude, longitude])
+  end
+  
+  
   def edit
     @post = Post.find(params[:id])
   end

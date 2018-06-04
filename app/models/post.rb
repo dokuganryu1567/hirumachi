@@ -7,4 +7,7 @@ class Post < ApplicationRecord
   
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
+  
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
 end

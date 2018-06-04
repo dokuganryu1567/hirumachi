@@ -59,3 +59,5 @@ gem 'rmagick'
 
 gem 'geocoder'
 gem 'gmaps4rails'
+
+gem 'pry-byebug'
