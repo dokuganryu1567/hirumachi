@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     latitude = params[:latitude]
     longitude = params[:longitude]
     
-    @posts = Post.all.within(3, origin: [latitude, longitude])
+    @posts = Post.all.within(4, origin: [latitude, longitude])
   end
   
   
