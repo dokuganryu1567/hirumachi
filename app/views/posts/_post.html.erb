@@ -1,3 +1,10 @@
 <% if post.persisted? %>
-  <li><%= congestion_values[post.congestion] %> : <%= post.shop_name %> : <%= post.address %></li>
+  <li>
+    <%= image_tag(post.image.thumb.url) if post.image.present? %><br>
+    投稿時間 : <%= post.created_at.to_s(:time) %><br>
+    <%= link_to congestion_values[post.congestion], post.user, class: "btn btn-#{ congestion_values[post.congestion] == "混んでる" ? "danger" : "success" }" %>
+    店名 : <%= post.shop_name %><br>
+    住所 : <%= post.address.present? ? post.address : "--取得に失敗しました--"%><br>
+    <hr>
+  </li>
 <% end %>

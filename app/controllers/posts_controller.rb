@@ -12,18 +12,20 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    image_data = Magick::Image.read(@post.image.file.file)[0]
-    exif_lat = image_data.get_exif_by_entry('GPSLatitude')[0][1].to_s.split(',').map(&:strip)
-    exif_lng = image_data.get_exif_by_entry('GPSLongitude')[0][1].to_s.split(',').map(&:strip)
-    @post.latitude = exif_lat.present? ? (Rational(exif_lat[0]) + Rational(exif_lat[1])/60 + Rational(exif_lat[2])/3600).to_f : nil
-    @post.longitude = exif_lng.present? ? (Rational(exif_lng[0]) + Rational(exif_lng[1])/60 + Rational(exif_lng[2])/3600).to_f : nil
+    if @post.image.present?
+      image_data = Magick::Image.read(@post.image.file.file)[0]
+      exif_lat = image_data.get_exif_by_entry('GPSLatitude')[0][1].to_s.split(',').map(&:strip)
+      exif_lng = image_data.get_exif_by_entry('GPSLongitude')[0][1].to_s.split(',').map(&:strip)
+      @post.latitude = exif_lat.present? ? (Rational(exif_lat[0]) + Rational(exif_lat[1])/60 + Rational(exif_lat[2])/3600).to_f : nil
+      @post.longitude = exif_lng.present? ? (Rational(exif_lng[0]) + Rational(exif_lng[1])/60 + Rational(exif_lng[2])/3600).to_f : nil
+    end
     if @post.save
       flash[:success] = 'メッセージを投稿しました'
       redirect_to root_path
     else
       @posts = current_user.feed_posts.order('created_at DESC').page(params[:page])
       flash.now[:danger] = '投稿に失敗しました'
-      render 'toppages/index'
+      render 'new'
     end
   end
   
@@ -44,7 +46,7 @@ class PostsController < ApplicationController
     
     if @post.update(post_params)
       flash[:success] = '投稿が更新されました'
-      redirect_to current_user
+      redirect_to root_path
     else
       flash.now[:danger] = '投稿が更新されませんでした'
       render :edit
@@ -60,7 +62,7 @@ class PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:post).permit(:congestion, :shop_name, :image, :latitude, :longitude)
+    params.require(:post).permit(:congestion, :shop_name, :image, :latitude, :longitude, :image_cache)
   end
   
   def correct_user

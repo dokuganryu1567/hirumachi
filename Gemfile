@@ -56,6 +56,7 @@ gem 'kaminari'
 
 gem 'carrierwave'
 gem 'rmagick'
+gem 'cloudinary'
 
 gem 'geocoder'
 gem 'gmaps4rails'

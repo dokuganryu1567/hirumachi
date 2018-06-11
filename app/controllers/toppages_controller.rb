@@ -27,9 +27,8 @@ class ToppagesController < ApplicationController
       @posts << post if result < 4 && limit_time < post.created_at
     end
     # binding.pry
-    @hav_markers = Post.where(id: @posts.pluck(:id)).where.not(latitude: nil, longitude: nil).to_a
+    @hav_markers = Post.where(id: @posts.pluck(:id)).where.not(latitude: nil, longitude: nil).order(created_at: :desc).to_a
     @hav_markers << Post.new(latitude: @latitude, longitude: @longitude, shop_name: "現在地")
-    p @hav_markers
     @hash = Gmaps4rails.build_markers(@hav_markers) do |post, marker|
       marker.lat post.latitude
       marker.lng post.longitude
@@ -43,19 +42,17 @@ class ToppagesController < ApplicationController
   private
   
   def distance(lat1, lng1, lat2, lng2)
-    p '*****start distance*******'
     # ラジアン単位に変換
-    p x1 = lat1.to_f * Math::PI / 180
-    p y1 = lng1.to_f * Math::PI / 180
-    p x2 = lat2.to_f * Math::PI / 180
-    p y2 = lng2.to_f * Math::PI / 180
+    x1 = lat1.to_f * Math::PI / 180
+    y1 = lng1.to_f * Math::PI / 180
+    x2 = lat2.to_f * Math::PI / 180
+    y2 = lng2.to_f * Math::PI / 180
     
     # 地球の半径 (km)
     radius = 6378.137
     
     # 差の絶対値
-    p "abs"
-    p diff_y = (y1 - y2).abs
+    diff_y = (y1 - y2).abs
     
     calc1 = Math.cos(x2) * Math.sin(diff_y)
     calc2 = Math.cos(x1) * Math.sin(x2) - Math.sin(x1) * Math.cos(x2) * Math.cos(diff_y)
@@ -70,8 +67,6 @@ class ToppagesController < ApplicationController
     degree = Math.atan2(numerator, denominator)
     
     # 大円距離 (km)
-    p "*****result distance****************"
     return (degree * radius)
-    p "---------------------distahce end-------------"
   end
 end

@@ -25,8 +25,7 @@
           <%= image_tag 'noimage.gif' %>
         <% end %>
         <div id="list">
-          <%= link_to post.shop_name, post %>: <%= congestion_values[post.congestion] %>
-          <%= link_to '投稿を編集する', edit_post_path(post) %>
+          <%= post.shop_name %>: <%= congestion_values[post.congestion] %>
           <%= link_to '投稿を削除する', post, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>
         </div>
       </li>
