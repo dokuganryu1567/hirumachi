@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     @post.longitude = exif_lng.present? ? (Rational(exif_lng[0]) + Rational(exif_lng[1])/60 + Rational(exif_lng[2])/3600).to_f : nil
     if @post.save
       flash[:success] = 'メッセージを投稿しました'
-      redirect_to current_user
+      redirect_to root_path
     else
       @posts = current_user.feed_posts.order('created_at DESC').page(params[:page])
       flash.now[:danger] = '投稿に失敗しました'

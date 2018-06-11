@@ -48,7 +48,10 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
+  #<<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: hirumachi_production
   username: hirumachi
   password: <%= ENV['HIRUMACHI_DATABASE_PASSWORD'] %>

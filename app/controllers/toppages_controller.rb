@@ -18,15 +18,18 @@ class ToppagesController < ApplicationController
     @latitude = params[:latitude].to_f
     @longitude = params[:longitude].to_f
     @posts = []
+    limit_time = Time.zone.now - 3600
     posts = Post.all
     posts.each do |post|
       post.latitude
       post.longitude
       p result = distance(post.latitude, post.longitude, @latitude, @longitude).to_f
-      @posts << post if (result < 3)
+      @posts << post if result < 4 && limit_time < post.created_at
     end
     # binding.pry
-    @hav_markers = Post.where(id: @posts.pluck(:id)).where.not(latitude: nil, longitude: nil)
+    @hav_markers = Post.where(id: @posts.pluck(:id)).where.not(latitude: nil, longitude: nil).to_a
+    @hav_markers << Post.new(latitude: @latitude, longitude: @longitude, shop_name: "現在地")
+    p @hav_markers
     @hash = Gmaps4rails.build_markers(@hav_markers) do |post, marker|
       marker.lat post.latitude
       marker.lng post.longitude

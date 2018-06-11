@@ -1,1 +1,3 @@
-<li><%= congestion_values[post.congestion] %> : <%= post.shop_name %> : <%= post.address %></li>
+<% if post.persisted? %>
+  <li><%= congestion_values[post.congestion] %> : <%= post.shop_name %> : <%= post.address %></li>
+<% end %>

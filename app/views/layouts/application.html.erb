@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="HIRUMACHIは現在位置から半径3km以内の飲食店の混雑状況を共有するアプリです" name="description">
     
     <title>Hirumachi</title>
     
@@ -24,6 +25,10 @@
     
     <div class="container">
       <%= render 'layouts/flash_messages' %>
+      
+      <div class="desc">
+        <h2>HIRUMACHIは半径3kmの飲食店の混み具合を共有するアプリです！</h2>
+      </div>
       
       <%= yield %>
     </div>
