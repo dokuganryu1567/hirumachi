@@ -18,7 +18,7 @@ class ToppagesController < ApplicationController
     @latitude = params[:latitude].to_f
     @longitude = params[:longitude].to_f
     @posts = []
-    limit_time = Time.zone.now - 3600
+    limit_time = Time.zone.now - 7200
     posts = Post.all
     posts.each do |post|
       post.latitude
